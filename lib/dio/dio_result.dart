@@ -5,9 +5,9 @@ class DioResult {
   dynamic msg;
   dynamic data;
 
-  List<String> get codeKeys => ['code'];
-  List<String> get msgkeys => ['msg'];
-  List<String> get dataKeys => ['data'];
+  List<String> get codeKeys => ['code', 'rtnCode'];
+  List<String> get msgkeys => ['msg', 'message'];
+  List<String> get dataKeys => ['data', 'content'];
 
   DioResult({this.code, this.msg, this.data});
 

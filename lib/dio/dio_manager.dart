@@ -4,23 +4,31 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_simple_framework/dio/dio_config.dart';
 import 'package:flutter_simple_framework/dio/dio_intercept.dart';
 
 import 'dio_result.dart';
 import 'intercept/dio_log_interceptors.dart';
 import 'intercept/dio_request_interceptors.dart';
 
+const kContentTypeUrlencoded =
+    'application/x-www-form-urlencoded; charset=utf-8';
+const kContentTypeJson = 'application/json; charset=utf-8';
+const kContentTypeHtml = 'text/html; charset=utf-8';
+
 class DioManager {
   late Dio _dioInstance;
   DioIntercept? intercept;
 
   ///初始化
-  DioManager.init(DioConfig config, {DioIntercept? intercept}) {
+  DioManager.init(
+      {String baseUrl = '',
+      String? proxy,
+      String contentType = kContentTypeJson,
+      DioIntercept? intercept}) {
     this.intercept = intercept;
     _dioInstance = new Dio(BaseOptions(
-      baseUrl: config.baseUrl,
-      contentType: config.contentType,
+      baseUrl: baseUrl,
+      contentType: contentType,
       // sendTimeout: 60 * 1000,
       // connectTimeout: 60 * 1000,
       // receiveTimeout: 60 * 1000,
@@ -28,11 +36,11 @@ class DioManager {
     _dioInstance.interceptors.add(RequestInterceptors(intercept: intercept));
     _dioInstance.interceptors.add(DioLogInterceptors());
 
-    if (!kReleaseMode && config.proxy != null) {
+    if (!kReleaseMode && proxy != null) {
       (_dioInstance.httpClientAdapter as DefaultHttpClientAdapter)
           .onHttpClientCreate = (HttpClient client) {
         client.findProxy = (uri) {
-          return "PROXY ${config.proxy}";
+          return "PROXY $proxy";
         };
       };
     }
@@ -59,31 +67,29 @@ class DioManager {
         queryParameters: queryParameters, cancelToken: cancelToken));
   }
 
-  Future<DioResult> _handleResquest(Future<Response?> future) {
+  Future<DioResult> _handleResquest(Future<Response> future) {
     Completer<DioResult> completer = Completer();
     future.then((response) {
-      ///请求发生异常,直接返回
-      if (response == null || response.statusCode != 200) {
+      ///请求发生异常
+      if (response.statusCode != 200) {
         completer.completeError(DioResult.responseError(response));
-        return completer.future;
-      }
-
-      DioResult result = DioResult.fromJson(response.data);
-
-      ///没有拦截,直接返回
-      if (intercept == null) {
-        completer.complete(result);
-        return completer.future;
-      }
-
-      ///存在拦截,根据成功码和错误码进行业务处理
-      if (!intercept!.successCodes.contains(result.code)) {
-        if (intercept!.errorCodes.contains(result.code) &&
-            !intercept!.interceptErrorCode(result.code)) {
-          completer.completeError(result);
-        }
       } else {
-        completer.completeError(result);
+        DioResult result = DioResult.fromJson(response.data);
+
+        ///没有拦截
+        if (intercept == null) {
+          completer.complete(result);
+        } else {
+          ///存在拦截,根据成功码和错误码进行业务处理
+          if (intercept!.successCodes.contains(result.code)) {
+            completer.complete(result);
+          } else {
+            if (intercept!.errorCodes.contains(result.code) &&
+                !intercept!.interceptErrorCode(result.code)) {
+              completer.completeError(result);
+            }
+          }
+        }
       }
     }).catchError((e) {
       completer.completeError(DioResult.error(e));
