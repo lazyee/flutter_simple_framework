@@ -1,8 +1,8 @@
 class BaseModel {
   ///安全的获取字符串
-  String? getString(dynamic json, String key, {String? defVale}) {
+  String? getString(dynamic json, String key, {String? defVal = ''}) {
     dynamic value = json[key];
-    if (value == null) return defVale;
+    if (value == null) return defVal;
     if (value is String) return value;
     return value.toString();
   }
@@ -16,7 +16,7 @@ class BaseModel {
   }
 
   ///安全的获取int值
-  int? getInt(dynamic json, String key, {int? defVal}) {
+  int? getInt(dynamic json, String key, {int? defVal = 0}) {
     dynamic value = json[key];
     if (value == null) return defVal;
     if (value is int) return value;
@@ -32,7 +32,7 @@ class BaseModel {
   }
 
   ///安全的获取double值
-  double? getDouble(dynamic json, String key, {double? defVal}) {
+  double? getDouble(dynamic json, String key, {double? defVal = 0}) {
     dynamic value = json[key];
     if (value == null) return defVal;
     if (value is double) return value;

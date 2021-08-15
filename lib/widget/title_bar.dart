@@ -10,6 +10,7 @@ class TitleBar extends StatelessWidget {
   final Widget? titleWidget;
   final bool isShowBackArrow;
   final Widget? leftWidget;
+  final VoidCallback? onTapLeftwidget;
   final Widget? rightWidget;
   final double height;
 
@@ -23,6 +24,7 @@ class TitleBar extends StatelessWidget {
       this.height = 55,
       this.rightWidget,
       this.titleWidget,
+      this.onTapLeftwidget,
       this.backgroundColor})
       : super(key: key);
 
@@ -45,7 +47,7 @@ class TitleBar extends StatelessWidget {
     if (leftWidget != null) return leftWidget!;
 
     return Tap(
-        onTap: Get.back,
+        onTap: this.onTapLeftwidget ?? Get.back,
         child: Container(
           child: Icon(
             Icons.arrow_back_ios_new,

@@ -1,4 +1,5 @@
 export 'package:flutter_simple_framework/app/application.dart';
+export 'package:flutter_simple_framework/app/route_manager.dart';
 
 ///base
 ///
