@@ -1,23 +1,23 @@
-extension DynamicExtension on dynamic {
+class BaseModel {
   ///安全的获取字符串
-  String? getString(dynamic key, {String? defVale}) {
-    dynamic value = this[key];
+  String? getString(dynamic json, String key, {String? defVale}) {
+    dynamic value = json[key];
     if (value == null) return defVale;
     if (value is String) return value;
     return value.toString();
   }
 
   ///安全的获取布尔值
-  bool getBool(dynamic key, {bool defVal = false}) {
-    dynamic value = this[key];
+  bool getBool(dynamic json, String key, {bool defVal = false}) {
+    dynamic value = json[key];
     if (value == null) return defVal;
     if (value is bool) return value;
     return defVal;
   }
 
   ///安全的获取int值
-  int? getInt(dynamic key, {int? defVal}) {
-    dynamic value = this[key];
+  int? getInt(dynamic json, String key, {int? defVal}) {
+    dynamic value = json[key];
     if (value == null) return defVal;
     if (value is int) return value;
     if (value is double) return value.toInt();
@@ -32,8 +32,8 @@ extension DynamicExtension on dynamic {
   }
 
   ///安全的获取double值
-  double? getDouble(dynamic key, {double? defVal}) {
-    dynamic value = this[key];
+  double? getDouble(dynamic json, String key, {double? defVal}) {
+    dynamic value = json[key];
     if (value == null) return defVal;
     if (value is double) return value;
     if (value is int) return value.toDouble();

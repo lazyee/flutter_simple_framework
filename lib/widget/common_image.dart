@@ -11,6 +11,18 @@ class CommonImage extends StatelessWidget {
   final Widget? placeHolder;
   final Widget? failed;
 
+  const CommonImage(
+      {Key? key,
+      this.file,
+      this.asset,
+      this.url,
+      this.width,
+      this.height,
+      this.failed,
+      this.placeHolder,
+      this.fit = BoxFit.cover})
+      : super(key: key);
+
   const CommonImage.url(this.url,
       {Key? key,
       this.width,
