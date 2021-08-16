@@ -23,6 +23,7 @@ dependencies:
   get: ^4.1.4
   fluro: ^2.0.3
   intl: ^0.17.0
+  flustars: ^2.0.1
 
 dev_dependencies:
   flutter_test:

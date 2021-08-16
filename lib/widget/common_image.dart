@@ -10,6 +10,7 @@ class CommonImage extends StatelessWidget {
   final BoxFit? fit;
   final Widget? placeHolder;
   final Widget? failed;
+  final String? package;
 
   const CommonImage(
       {Key? key,
@@ -20,6 +21,7 @@ class CommonImage extends StatelessWidget {
       this.height,
       this.failed,
       this.placeHolder,
+      this.package,
       this.fit = BoxFit.cover})
       : super(key: key);
 
@@ -31,6 +33,7 @@ class CommonImage extends StatelessWidget {
       this.failed,
       this.asset,
       this.file,
+      this.package,
       this.fit = BoxFit.cover})
       : super(key: key);
 
@@ -40,6 +43,7 @@ class CommonImage extends StatelessWidget {
       this.file,
       this.width,
       this.height,
+      this.package,
       this.failed,
       this.placeHolder,
       this.fit = BoxFit.cover})
@@ -53,6 +57,7 @@ class CommonImage extends StatelessWidget {
       this.height,
       this.failed,
       this.placeHolder,
+      this.package,
       this.fit = BoxFit.cover})
       : super(key: key);
 
@@ -82,6 +87,7 @@ class CommonImage extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
+        package: package,
         loadStateChanged: onLoadStateChanged,
       );
     }
