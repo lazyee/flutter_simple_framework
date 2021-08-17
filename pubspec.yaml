@@ -24,6 +24,8 @@ dependencies:
   fluro: ^2.0.3
   intl: ^0.17.0
   flustars: ^2.0.1
+  flutter_local_notifications: ^8.1.1+1
+  android_intent_plus: ^1.0.2
 
 dev_dependencies:
   flutter_test:
