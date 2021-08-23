@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
@@ -54,8 +55,7 @@ class DioManager {
   }
 
   ///post 请求
-  Future<DioResult> post(String path,
-      {Map<String, dynamic>? data, CancelToken? cancelToken}) {
+  Future<DioResult> post(String path, {data, CancelToken? cancelToken}) {
     return _handleResquest(
         _dioInstance.post(path, data: data, cancelToken: cancelToken));
   }
@@ -69,12 +69,18 @@ class DioManager {
 
   Future<DioResult> _handleResquest(Future<Response> future) {
     Completer<DioResult> completer = Completer();
+
     future.then((response) {
       ///请求发生异常
       if (response.statusCode != 200) {
         completer.completeError(DioResult.responseError(response));
       } else {
-        DioResult result = DioResult.fromJson(response.data);
+        late DioResult result;
+        if (response.data is String) {
+          result = DioResult.fromJson(json.decode(response.data as String));
+        } else {
+          result = DioResult.fromJson(response.data);
+        }
 
         ///没有拦截
         if (intercept == null) {
@@ -84,8 +90,11 @@ class DioManager {
           if (intercept!.successCodes.contains(result.code)) {
             completer.complete(result);
           } else {
-            if (intercept!.errorCodes.contains(result.code) &&
-                !intercept!.interceptErrorCode(result.code)) {
+            if (intercept!.errorCodes.contains(result.code)) {
+              if (!intercept!.interceptErrorCode(result.code)) {
+                completer.completeError(result);
+              }
+            } else {
               completer.completeError(result);
             }
           }
