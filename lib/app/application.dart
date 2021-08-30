@@ -3,9 +3,9 @@ import 'route_manager.dart';
 import 'sp_manager.dart';
 
 class Application {
-  static void init(RouteConfig routeConfig) {
+  static void init(List<RouteConfig> routeConfigs) {
     SPManager.getInstance();
-    RouteManager.init(routeConfig);
+    RouteManager.init(routeConfigs);
   }
 
   static EventBusManager get eventBus => EventBusManager.getInstance();

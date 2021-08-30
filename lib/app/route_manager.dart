@@ -17,7 +17,7 @@ class RouteManager {
   }
 
   late FluroRouter router;
-  static RouteConfig? _config;
+  static List<RouteConfig>? _configs;
   static RouteManager? _instance;
   static RouteManager getInstance() {
     if (_instance == null) {
@@ -26,14 +26,16 @@ class RouteManager {
     return _instance!;
   }
 
-  static void init(RouteConfig config) {
-    _config = config;
+  static void init(List<RouteConfig> configs) {
+    _configs = configs;
   }
 
   RouteManager._() {
     _routeObserver = RouteObserver<ModalRoute<void>>();
     router = FluroRouter();
-    _config?.configureRoutes(router);
+    _configs?.forEach((config) {
+      config.configureRoutes(router);
+    });
   }
 
   Route<dynamic>? generator(RouteSettings routeSettings) {
