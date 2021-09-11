@@ -66,7 +66,7 @@ class TitleBar extends StatelessWidget {
     TextStyle defultTextStyle = TextStyle(
       fontWeight: FontWeight.bold,
       color: Colors.black,
-      fontSize: 17.sp,
+      fontSize: 18.sp,
     );
 
     return Text(
