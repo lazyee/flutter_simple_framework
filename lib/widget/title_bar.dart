@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'tap.dart';
@@ -10,10 +9,10 @@ class TitleBar extends StatelessWidget {
   final Widget? titleWidget;
   final bool isShowBackArrow;
   final Widget? leftWidget;
-  final VoidCallback? onTapLeftwidget;
+  final VoidCallback? onTapLeftWidget;
   final Widget? rightWidget;
   final double height;
-
+  final Color color; //返回按钮和标题文字的颜色
   final Color? backgroundColor;
   const TitleBar(
       {Key? key,
@@ -24,7 +23,8 @@ class TitleBar extends StatelessWidget {
       this.height = 55,
       this.rightWidget,
       this.titleWidget,
-      this.onTapLeftwidget,
+      this.onTapLeftWidget,
+      this.color = Colors.black,
       this.backgroundColor})
       : super(key: key);
 
@@ -47,11 +47,12 @@ class TitleBar extends StatelessWidget {
     if (leftWidget != null) return leftWidget!;
 
     return Tap(
-        onTap: this.onTapLeftwidget ?? Get.back,
+        onTap: this.onTapLeftWidget ?? Get.back,
         child: Container(
           child: Icon(
             Icons.arrow_back_ios_new,
-            size: 20.w,
+            size: 20,
+            color: color,
           ),
           width: height,
           height: height,
@@ -63,17 +64,17 @@ class TitleBar extends StatelessWidget {
 
     if (title == null) return SizedBox();
 
-    TextStyle defultTextStyle = TextStyle(
+    TextStyle textStyle = TextStyle(
       fontWeight: FontWeight.bold,
-      color: Colors.black,
-      fontSize: 18.sp,
+      color: color,
+      fontSize: 18,
     );
 
     return Text(
       title ?? "",
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style: titleTextStyle ?? defultTextStyle,
+      style: textStyle.merge(titleTextStyle),
     );
   }
 
