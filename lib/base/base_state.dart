@@ -37,6 +37,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T>
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
     Application.router.unsubscribe(this);
+    Application.eventBus.unsubscribe(this);
     super.dispose();
   }
 }

@@ -75,7 +75,10 @@ class CommonImage extends StatelessWidget {
         );
       case LoadState.failed:
         return Container(
-            child: failed ?? SizedBox(), width: width, height: height);
+            color: Color(0xFFE0E0E0),
+            child: failed ?? SizedBox(),
+            width: width,
+            height: height);
     }
   }
 

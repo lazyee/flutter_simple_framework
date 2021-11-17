@@ -14,7 +14,6 @@ dependencies:
   package_info_plus: ^1.0.6
   event_bus: ^2.0.0
   dio: ^4.0.0
-  flutter_screenutil: ^5.0.0+2
   permission_handler: ^8.1.6
   extended_image: ^4.2.1
   url_launcher: ^6.0.10
