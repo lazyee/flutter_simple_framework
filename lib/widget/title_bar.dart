@@ -20,7 +20,7 @@ class TitleBar extends StatelessWidget {
       this.titleTextStyle,
       this.isShowBackArrow = true,
       this.leftWidget,
-      this.height = 55,
+      this.height = 50,
       this.rightWidget,
       this.titleWidget,
       this.onTapLeftWidget,
@@ -50,7 +50,7 @@ class TitleBar extends StatelessWidget {
         onTap: this.onTapLeftWidget ?? Get.back,
         child: Container(
           child: Icon(
-            Icons.arrow_back_ios_new,
+            Icons.arrow_back_ios_new_rounded,
             size: 20,
             color: color,
           ),
@@ -67,7 +67,7 @@ class TitleBar extends StatelessWidget {
     TextStyle textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       color: color,
-      fontSize: 18,
+      fontSize: 15,
     );
 
     return Text(
