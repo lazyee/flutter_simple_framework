@@ -15,10 +15,7 @@ dependencies:
   event_bus: ^2.0.0
   dio: ^4.0.0
   permission_handler: ^8.1.6
-  # extended_image: ^5.1.3
-  extended_image: #解决2.8.0编译报错的问题
-    git:
-      url: git://github.com/mdddj/extended_image.git
+  extended_image: ^5.1.3
   url_launcher: ^6.0.10
   cupertino_icons: ^1.0.2
   fluttertoast: ^8.0.8
