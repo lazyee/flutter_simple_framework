@@ -67,17 +67,19 @@ class RouterManager {
         clearStack: clearStack);
   }
 
-  ///返回到指定的页面
-  popUntil(String routeName) {
-    if (Get.context == null) return null;
-    return Navigator.of(Get.context!).popUntil(ModalRoute.withName(routeName));
-  }
+  ///在使用fluro的情况下不再需要使用这个方法，这里先注释掉
+  // ///返回到指定的页面
+  // popUntil(String routeName) {
+  //   if (Get.context == null) return null;
+  //   return Navigator.of(Get.context!).popUntil(ModalRoute.withName(routeName));
+  // }
 
-  ///根据配置的名字跳转新路由，用新路由替换当前路由
-  pushReplacementNamed(String routeName) {
-    if (Get.context == null) return null;
-    return Navigator.of(Get.context!).pushReplacementNamed(routeName);
-  }
+  ///在使用fluro的情况下不再需要使用这个方法，这里先注释掉
+  // ///根据配置的名字跳转新路由，用新路由替换当前路由
+  // pushReplacementNamed(String routeName) {
+  //   if (Get.context == null) return null;
+  //   return Navigator.of(Get.context!).pushReplacementNamed(routeName);
+  // }
 
   /// 返回上一个路由
   pop<T>([T? result]) {
